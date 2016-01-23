@@ -35,3 +35,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/', 'HomeController@index');
 });
+
+Route::get('admin', function () {
+    return view('admin_template');
+});
