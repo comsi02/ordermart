@@ -156,6 +156,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Application Service Providers for Form & HTML
+         */
+        Collective\Html\HtmlServiceProvider::class,
     ],
 
     /*
@@ -202,6 +206,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Application Service Aliases for Form & HTML
+         */
+        'Form'      => Collective\Html\FormFacade::class,
+        'HTML'      => Collective\Html\HtmlFacade::class,
     ],
 
 ];
