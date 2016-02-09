@@ -27,7 +27,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'HomeController@index');
 
     // product
-    Route::get('/product', ['as' => 'product', 'uses' => 'ProductController@index']);
+    Route::get ('/product',                 ['as' => 'product_index',       'uses' => 'ProductController@index']);
+    Route::get ('/product/{id}',            ['as' => 'product_view',        'uses' => 'ProductController@view']);
+    Route::get ('/product/{id}/destory',    ['as' => 'product_destroy',     'uses' => 'ProductController@destory']);
+    Route::get ('/product/{id}/edit',       ['as' => 'product_edit',        'uses' => 'ProductController@edit']);
 });
 
 Route::get('admin', function () {
