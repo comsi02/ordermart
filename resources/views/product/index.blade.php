@@ -16,7 +16,6 @@
                                 <tr>
                                     <th>상품ID</th>
                                     <th>상품명</th>
-                                    <th>상품설명</th>
                                     <th>판매가능수량</th>
                                     <th>Actions</th>
                                 </tr>
@@ -28,7 +27,6 @@
                                 <tr>
                                     <td>{{ $x }}</td>
                                     <td><a href="{{ url('product', $item->id) }}">{{ $item->name }}</a></td>
-                                    <td>{{ $item->desc }}</td>
                                     <td>{{ $item->quantity }}</td>
                                     <td>
                                         <a href="{{ url('product/' . $item->id . '/edit') }}">
