@@ -2,7 +2,12 @@
 
 @section('content')
 
+<div class="panel-heading">Products - view</div>
+
+<div class="panel-body">
+
 {{ $data['product'] }}
-{{ json_encode($data) }}
+
+</div>
 
 @endsection

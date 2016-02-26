@@ -155,11 +155,6 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        /*
-         * Application Service Providers for Form & HTML
-         */
-        Collective\Html\HtmlServiceProvider::class,
     ],
 
     /*
@@ -207,10 +202,9 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         /*
-         * Application Service Aliases for Form & HTML
+         * Application Service Aliases for OrderMart
          */
-        'Form'      => Collective\Html\FormFacade::class,
-        'HTML'      => Collective\Html\HtmlFacade::class,
+        'Input'     => Illuminate\Support\Facades\Input::class,
     ],
 
 ];

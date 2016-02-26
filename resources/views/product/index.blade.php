@@ -2,10 +2,6 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
                 <div class="panel-heading">Products</div>
 
                 <div class="panel-body">
@@ -38,6 +34,9 @@
                                         <a href="{{ url('product/' . $item->id . '/edit') }}">
                                             <button type="submit" class="btn btn-primary btn-xs">수정</button>
                                         </a>
+                                        <a href="{{ url('product/' . $item->id . '/delete') }}">
+                                            <button type="submit" class="btn btn-danger btn-xs">삭제</button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -48,10 +47,6 @@
                     <!-- body start -->
 
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @endsection
 

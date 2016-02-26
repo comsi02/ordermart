@@ -27,10 +27,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'HomeController@index');
 
     // product
-    Route::get ('/product',                 ['as' => 'product_index',       'uses' => 'ProductController@index']);
-    Route::get ('/product/{id}',            ['as' => 'product_view',        'uses' => 'ProductController@view']);
-    Route::get ('/product/{id}/destory',    ['as' => 'product_destroy',     'uses' => 'ProductController@destory']);
-    Route::get ('/product/{id}/edit',       ['as' => 'product_edit',        'uses' => 'ProductController@edit']);
+    Route::get ('/product',                 ['as' => 'product_index',         'uses' => 'ProductController@index']);
+    Route::get ('/product/create',          ['as' => 'product_create',        'uses' => 'ProductController@create']);
+    Route::post('/product/create_submit',   ['as' => 'product_create_submit', 'uses' => 'ProductController@create_submit']);
+    Route::get ('/product/{id}',            ['as' => 'product_view',          'uses' => 'ProductController@view']);
+    Route::get ('/product/{id}/destory',    ['as' => 'product_destory',       'uses' => 'ProductController@destory']);
+    Route::get ('/product/{id}/edit',       ['as' => 'product_edit',          'uses' => 'ProductController@edit']);
+    Route::post('/product/edit_submit',     ['as' => 'product_edit_submit',   'uses' => 'ProductController@edit_submit']);
 });
 
 Route::get('admin', function () {

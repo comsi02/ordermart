@@ -16,6 +16,22 @@ class ProductController extends Controller
         return view('product.index', compact('products'));
     }
 
+    public function create() {
+        return view('product.create');
+    }
+
+    public function create_submit() {
+
+        $product = new Product();
+        $product->name = \Input::get('name');
+        $product->desc = \Input::get('desc');
+        $product->quantity = \Input::get('quantity');
+        $product->salesman = \Auth::user()->id;
+        $product->save();
+
+        return \Redirect()->action('ProductController@index');
+    }
+
     public function view($id) {
         $product = Product::find($id);
 
@@ -33,9 +49,21 @@ class ProductController extends Controller
             'product' => $product
         ];
 
-        return view('product.view', compact('data'));
+        return view('product.edit', compact('data'));
+    }
+
+    public function edit_submit() {
+
+        $product = Product::find(\Input::get('product_id'));
+        $product->name = \Input::get('name');
+        $product->desc = \Input::get('desc');
+        $product->quantity = \Input::get('quantity');
+        $product->save();
+
+        return \Redirect()->action('ProductController@index');
     }
 
     public function destory($id) {
+        return view('product.destory', compact('data'));
     }
 }
