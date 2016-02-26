@@ -7,15 +7,54 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Salesman;
+use App\Models\Order;
 use App\Models\Product;
 
-class ProductController extends Controller
+class OrderController extends Controller
 {
     public function index() {
-        $products = Product::where('status','SALE')->paginate(5);
-        return view('product.index', compact('products'));
+
+        $salesman = Salesman::paginate(5);
+
+        $data = [
+            'salesman' => $salesman
+        ];
+
+        return view('order.index', compact('data'));
     }
 
+    public function product() {
+
+        $data = \Input::get();
+
+        try {
+
+            \DB::beginTransaction();
+
+            $order = new Order();
+            $order->product_id = $data['product_id'];
+            $order->user_id = \Auth::user()->id;
+            $order->quantity = $data['item_count'];
+            $order->status = 'Inprogress';
+            $order->save();
+
+            $product = Product::find($data['product_id']);
+            $product->quantity = $product->quantity - $data['item_count'];
+            $product->save();
+
+            \DB::commit();
+
+            \Event::fire('order.send_mail', [$data]);
+
+        } catch (exception $e) {
+            \DB::rollback();
+            return \Response::json(['result' => 'error']);
+        }
+        return \Response::json(['result' => 'success']);
+    }
+
+/*
     public function create() {
         return view('product.create');
     }
@@ -82,19 +121,5 @@ class ProductController extends Controller
 
         return \Redirect()->action('ProductController@index');
     }
-
-    public function order($salesman) {
-        $products = Product::where('status','SALE')->where('salesman',$salesman)->paginate(5);
-        return view('product.order', compact('products'));
-    }
-
-    public function order_view($id) {
-        $product = Product::find($id);
-
-        $data = [
-            'product' => $product
-        ];
-
-        return view('product.order_view', compact('data'));
-    }
+*/
 }

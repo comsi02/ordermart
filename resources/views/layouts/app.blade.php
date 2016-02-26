@@ -48,7 +48,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/') }}">Home</a></li>
-                    <li><a href="{{ url('/product') }}">Product</a></li>
+                    <li><a href="{{ url('/product') }}">상품관리</a></li>
+                    <li><a href="{{ url('/order') }}">주문</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -87,5 +88,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
+    @yield('js')
+
 </body>
 </html>

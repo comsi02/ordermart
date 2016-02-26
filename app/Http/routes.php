@@ -27,16 +27,23 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'HomeController@index');
 
     // product
-    Route::get ('/product',                 ['as' => 'product_index',           'uses' => 'ProductController@index']);
-    Route::get ('/product/view/{id}',       ['as' => 'product_view',            'uses' => 'ProductController@view']);
+    Route::get ('/product',                     ['as' => 'product_index',           'uses' => 'ProductController@index']);
+    Route::get ('/product/view/{id}',           ['as' => 'product_view',            'uses' => 'ProductController@view']);
 
-    Route::get ('/product/create',          ['as' => 'product_create',          'uses' => 'ProductController@create']);
-    Route::post('/product/create',          ['as' => 'product_create_submit',   'uses' => 'ProductController@create_submit']);
+    Route::get ('/product/create',              ['as' => 'product_create',          'uses' => 'ProductController@create']);
+    Route::post('/product/create',              ['as' => 'product_create_submit',   'uses' => 'ProductController@create_submit']);
 
-    Route::get ('/product/edit/{id}',       ['as' => 'product_edit',            'uses' => 'ProductController@edit']);
-    Route::post('/product/edit',            ['as' => 'product_edit_submit',     'uses' => 'ProductController@edit_submit']);
+    Route::get ('/product/edit/{id}',           ['as' => 'product_edit',            'uses' => 'ProductController@edit']);
+    Route::post('/product/edit',                ['as' => 'product_edit_submit',     'uses' => 'ProductController@edit_submit']);
 
-    Route::get ('/product/destory/{id}',    ['as' => 'product_destory',         'uses' => 'ProductController@destory']);
-    Route::post('/product/destory',         ['as' => 'product_destory_submit',  'uses' => 'ProductController@destory_submit']);
+    Route::get ('/product/destory/{id}',        ['as' => 'product_destory',         'uses' => 'ProductController@destory']);
+    Route::post('/product/destory',             ['as' => 'product_destory_submit',  'uses' => 'ProductController@destory_submit']);
+
+    Route::get ('/product/order/{salesman}',    ['as' => 'product_order',           'uses' => 'ProductController@order']);
+    Route::get ('/product/order/view/{id}',     ['as' => 'product_order_view',      'uses' => 'ProductController@order_view']);
+
+    // order
+    Route::get ('/order',                       ['as' => 'order_index',             'uses' => 'OrderController@index']);
+    Route::post('/order/product',               ['as' => 'order_proudct',           'uses' => 'OrderController@product']);
 });
 
