@@ -27,6 +27,7 @@ class ProductController extends Controller
         $product->desc = \Input::get('desc');
         $product->quantity = \Input::get('quantity');
         $product->salesman = \Auth::user()->id;
+        $product->status = 'SALE';
         $product->save();
 
         return \Redirect()->action('ProductController@index');
@@ -65,5 +66,13 @@ class ProductController extends Controller
 
     public function destory($id) {
         return view('product.destory', compact('data'));
+    }
+
+    public function destory_submit() {
+        $product = Product::find(\Input::get('product_id'));
+        $product->status = 'STOP';
+        $product->save();
+
+        return \Redirect()->action('ProductController@index');
     }
 }

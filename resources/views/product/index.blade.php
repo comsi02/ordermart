@@ -26,13 +26,13 @@
                                 {{-- */$x++;/* --}}
                                 <tr>
                                     <td>{{ $x }}</td>
-                                    <td><a href="{{ url('product', $item->id) }}">{{ $item->name }}</a></td>
+                                    <td><a href="{{ url('product/view/'.$item->id) }}">{{ $item->name }}</a></td>
                                     <td>{{ $item->quantity }}</td>
                                     <td>
-                                        <a href="{{ url('product/' . $item->id . '/edit') }}">
+                                        <a href="{{ url('product/edit/'.$item->id) }}">
                                             <button type="submit" class="btn btn-primary btn-xs">수정</button>
                                         </a>
-                                        <a href="{{ url('product/' . $item->id . '/delete') }}">
+                                        <a href="{{ url('product/delete/'.$item->id) }}">
                                             <button type="submit" class="btn btn-danger btn-xs">삭제</button>
                                         </a>
                                     </td>
