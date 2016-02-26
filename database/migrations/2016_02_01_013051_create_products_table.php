@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->text('desc')->commnet('상품설명');
             $table->integer('quantity')->unsigned()->comment('수량');
             $table->integer('salesman')->unsigned()->comment('영업사원');
+            $table->string('status')->comment('상태');
             $table->timestamps();
 
             // foreign key
