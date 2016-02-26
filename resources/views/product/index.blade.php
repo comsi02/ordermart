@@ -21,18 +21,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {{-- */$x=0;/* --}}
                             @foreach($products as $item)
-                                {{-- */$x++;/* --}}
                                 <tr>
-                                    <td>{{ $x }}</td>
+                                    <td>{{ $item->id }}</td>
                                     <td><a href="{{ url('product/view/'.$item->id) }}">{{ $item->name }}</a></td>
                                     <td>{{ $item->quantity }}</td>
                                     <td>
                                         <a href="{{ url('product/edit/'.$item->id) }}">
                                             <button type="submit" class="btn btn-primary btn-xs">수정</button>
                                         </a>
-                                        <a href="{{ url('product/delete/'.$item->id) }}">
+                                        <a href="{{ url('product/destory/'.$item->id) }}">
                                             <button type="submit" class="btn btn-danger btn-xs">삭제</button>
                                         </a>
                                     </td>

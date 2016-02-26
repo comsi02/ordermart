@@ -12,7 +12,7 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function index() {
-        $products = Product::paginate(15);
+        $products = Product::where('status','SALE')->paginate(5);
         return view('product.index', compact('products'));
     }
 
@@ -65,6 +65,13 @@ class ProductController extends Controller
     }
 
     public function destory($id) {
+        $product = Product::find($id);
+
+        $data = [
+            'product' => $product
+        ];
+
+
         return view('product.destory', compact('data'));
     }
 
