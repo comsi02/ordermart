@@ -43,9 +43,9 @@ class OrderController extends Controller
             $product->quantity = $product->quantity - $data['item_count'];
             $product->save();
 
-            \DB::commit();
-
+            // 견적서 메일 발송
             \Event::fire('order.send_mail', [$data]);
+            \DB::commit();
 
         } catch (exception $e) {
             \DB::rollback();
