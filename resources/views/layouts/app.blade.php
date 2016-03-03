@@ -80,45 +80,9 @@ desired effect
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
-              <li>
-                <!-- inner menu: contains the messages -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <!-- User Image -->
-                        <img src="{{ Asset::version('dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
-                      </div>
-                      <!-- Message title and timestamp -->
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <!-- The message -->
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                </ul>
-                <!-- /.menu -->
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
-          </li>
-          <!-- /.messages-menu -->
 
-          <!-- Notifications Menu -->
+          <!-- Notifications Menu
           <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
@@ -126,22 +90,21 @@ desired effect
             <ul class="dropdown-menu">
               <li class="header">You have 10 notifications</li>
               <li>
-                <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
-                  <li><!-- start notification -->
+                  <li>
                     <a href="#">
                       <i class="fa fa-users text-aqua"></i> 5 new members joined today
                     </a>
                   </li>
-                  <!-- end notification -->
                 </ul>
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
-          <!-- Tasks Menu -->
+          -->
+
+          <!-- Tasks Menu
           <li class="dropdown tasks-menu">
-            <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
               <span class="label label-danger">9</span>
@@ -149,25 +112,20 @@ desired effect
             <ul class="dropdown-menu">
               <li class="header">You have 9 tasks</li>
               <li>
-                <!-- Inner menu: contains the tasks -->
                 <ul class="menu">
-                  <li><!-- Task item -->
+                  <li>
                     <a href="#">
-                      <!-- Task title and progress text -->
                       <h3>
                         Design some buttons
                         <small class="pull-right">20%</small>
                       </h3>
-                      <!-- The progress bar -->
                       <div class="progress xs">
-                        <!-- Change the css width attribute to simulate progress -->
                         <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                           <span class="sr-only">20% Complete</span>
                         </div>
                       </div>
                     </a>
                   </li>
-                  <!-- end task item -->
                 </ul>
               </li>
               <li class="footer">
@@ -175,6 +133,8 @@ desired effect
               </li>
             </ul>
           </li>
+          -->
+
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -182,45 +142,42 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="{{ Asset::version('dist/img/avatar5.png') }}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              @if (!Auth::guest())
-              <span class="hidden-xs">{{ Auth::user()->name }}</span>
-              @endif
+              <span class="hidden-xs">@if (Auth::guest()) 로그인 @else {{ Auth::user()->name }} @endif</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
                 <img src="{{ Asset::version('dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
-                @if (!Auth::guest())
+              @if (!Auth::guest())
                 <p>
                   {{ Auth::user()->name }} 
                   <small>{{ Auth::user()->email }}</small>
                 </p>
-                @endif
+              @else
+                <p>
+                  <small>로그인이 필요한 서비스입니다.</small>
+                  <small>로그인 또는 회원가입을 클릭해주세요.</small>
+                </p>
+              @endif
               </li>
-              <!-- Menu Body -->
-<!-- 
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div> </div>
--->
-                <!-- /.row -->
-              </li>
+
               <!-- Menu Footer-->
               <li class="user-footer">
+              @if (Auth::guest())
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ url('/register') }}" class="btn btn-default btn-flat">회원가입</a>
                 </div>
                 <div class="pull-right">
-                  <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ url('/login') }}" class="btn btn-default btn-flat">로그인</a>
                 </div>
+              @else
+                <div class="pull-left">
+                  <a href="{{ url('/profile') }}" class="btn btn-default btn-flat">내정보</a>
+                </div>
+                <div class="pull-right">
+                  <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">로그아웃</a>
+                </div>
+              @endif
               </li>
             </ul>
           </li>
@@ -241,34 +198,45 @@ desired effect
           <img src="{{ Asset::version('dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          @if (!Auth::guest())
+        @if (!Auth::guest())
           <p> {{ Auth::user()->name }}</p>
-          @endif
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        @else
+          <a href="#"><i class="fa fa-circle text-danger"></i> OffLine</a>
+        @endif
         </div>
       </div>
 
-      <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">관리자 or 영업사원 or 주문자</li>
+        <li class="header">관리자 / 영업사원 / 고객</li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="/product"><i class="fa fa-link"></i> <span>상품관리</span></a></li>
-        <li><a href="/order"><i class="fa fa-link"></i> <span>주문</span></a></li>
+
+        <li class="treeview active">
+          <a href="#"><i class="fa fa-link"></i> <span>관리자</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a href="/product"><i class="fa fa-circle-o"></i>상품관리</a></li>
+            <li><a href="/product"><i class="fa fa-circle-o"></i>조직관리</a></li>
+            <li><a href="/product"><i class="fa fa-circle-o"></i>사용자관리</a></li>
+          </ul>
+        </li>
+        <li class="treeview active">
+          <a href="#"><i class="fa fa-link"></i> <span>영업사원</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a href="/product"><i class="fa fa-circle-o"></i>상품관리</a></li>
+          </ul>
+        </li>
+        <li class="treeview active">
+          <a href="#"><i class="fa fa-link"></i> <span>고객</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a href="/order"><i class="fa fa-circle-o"></i>주문</a></li>
+          </ul>
+        </li>
 
 <!-- link example
+        <li><a href="/product"><i class="fa fa-link"></i> <span>상품관리</span></a></li>
+        <li><a href="/order"><i class="fa fa-link"></i> <span>주문</span></a></li>
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">
@@ -303,7 +271,6 @@ desired effect
     <!-- Main content -->
     <section class="content">
 
-      <!-- Your Page Content Here -->
       @yield('content')
 
     </section>
