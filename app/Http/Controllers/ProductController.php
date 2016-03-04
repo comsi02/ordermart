@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Product;
+use App\Models\Salesman;
 
 class ProductController extends Controller
 {
@@ -45,9 +46,11 @@ class ProductController extends Controller
 
     public function edit($id) {
         $product = Product::find($id);
+        $salesman = Salesman::find($product->salesman);
 
         $data = [
-            'product' => $product
+            'product' => $product,
+            'salesman' => $salesman,
         ];
 
         return view('product.edit', compact('data'));
