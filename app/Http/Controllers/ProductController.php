@@ -12,7 +12,7 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function index() {
-        $products = Product::where('status','SALE')->paginate(5);
+        $products = Product::where('status','SALE')->orderBy('id', 'desc')->paginate(5);
         return view('product.index', compact('products'));
     }
 
