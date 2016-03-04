@@ -38,12 +38,24 @@
           </tr>
         </table>
         <div class="box-footer">
-            <button type="submit" class="btn btn-primary">수정</button>
-            <button type="submit" class="btn btn-danger">삭제</button>
+            <button type="button" class="btn btn-danger" id="product_destory">삭제</button>
+            <button type="submit" class="btn btn-primary pull-right">수정</button>
         </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+$('#product_destory').on('click',function(){
+    $.post( '/product/destory', { 'product_id':"{{$data['product']['id']}}" }, function(data) {
+        if (data.result == 'success') {
+            window.history.back();
+        }
+    });
+});
+</script>
 @endsection

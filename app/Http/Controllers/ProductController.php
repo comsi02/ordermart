@@ -64,23 +64,20 @@ class ProductController extends Controller
         return \Redirect()->action('ProductController@index');
     }
 
-    public function destory($id) {
-        $product = Product::find($id);
+    public function destory() {
+        try {
+            \DB::beginTransaction();
 
-        $data = [
-            'product' => $product
-        ];
+            $product = Product::find(\Input::get('product_id'));
+            $product->status = 'STOP';
+            $product->save();
 
-
-        return view('product.destory', compact('data'));
-    }
-
-    public function destory_submit() {
-        $product = Product::find(\Input::get('product_id'));
-        $product->status = 'STOP';
-        $product->save();
-
-        return \Redirect()->action('ProductController@index');
+            \DB::commit();
+        } catch (exception $e) {
+            \DB::rollback();
+            return \Response::json(['result' => 'success']);
+        }
+        return \Response::json(['result' => 'success']);
     }
 
     public function order($salesman) {

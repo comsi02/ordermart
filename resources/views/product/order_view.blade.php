@@ -55,24 +55,18 @@
 @section('js')
 
 <script>
-    $('#product_order').on('click',function(){
+$('#product_order').on('click',function(){
 
-        var item_count = $('#item_count').val();
+    var item_count = $('#item_count').val();
 
-        $.post( '/order/product', 
-                {
-                    'product_id':"{{$data['product']['id']}}",
-                    'item_count':item_count
-                },
-                function(data) {
-                    if (data.result == 'success') {
-                        alert('구매성공');
-                    } else {
-                        alert('구매실패');
-                    }
-                }
-        );
+    $.post( '/order/product', { 'product_id':"{{$data['product']['id']}}", 'item_count':item_count }, function(data) {
+        if (data.result == 'success') {
+            alert('구매성공');
+        } else {
+            alert('구매실패');
+        }
     });
+});
 </script>
 
 @endsection

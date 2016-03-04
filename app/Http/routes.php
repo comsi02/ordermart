@@ -36,8 +36,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get ('/product/edit/{id}',           ['as' => 'product_edit',            'uses' => 'ProductController@edit']);
     Route::post('/product/edit',                ['as' => 'product_edit_submit',     'uses' => 'ProductController@edit_submit']);
 
-    Route::get ('/product/destory/{id}',        ['as' => 'product_destory',         'uses' => 'ProductController@destory']);
-    Route::post('/product/destory',             ['as' => 'product_destory_submit',  'uses' => 'ProductController@destory_submit']);
+    Route::post('/product/destory',             ['as' => 'product_destory',         'uses' => 'ProductController@destory']);
 
     Route::get ('/product/order/{salesman}',    ['as' => 'product_order',           'uses' => 'ProductController@order']);
     Route::get ('/product/order/view/{id}',     ['as' => 'product_order_view',      'uses' => 'ProductController@order_view']);

@@ -35,7 +35,7 @@
           </tr>
         </table>
         <div class="box-footer">
-            <button type="submit" class="btn btn-primary">등록</button>
+            <button type="submit" class="btn btn-primary pull-right">등록</button>
         </div>
         </form>
       </div>
