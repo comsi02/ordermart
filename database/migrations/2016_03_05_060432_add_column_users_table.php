@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnToUsersTable extends Migration
+class AddColumnUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddColumnToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('company_id')->after('remember_token')->unsigned()->comment('회사ID')
+            $table->integer('company_id')->after('remember_token')->unsigned()->comment('회사ID');
             $table->enum('client_yn',   array('Y', 'N'))->default('Y')->after('remember_token')->comment('Y:client,   N:not client');
             $table->enum('salesman_yn', array('Y', 'N'))->default('N')->after('remember_token')->comment('Y:salesman, N:not salesman');
             $table->enum('admin_yn',    array('Y', 'N'))->default('N')->after('remember_token')->comment('Y:admin,    N:not admin');
