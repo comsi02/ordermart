@@ -29,12 +29,17 @@ Route::group(['middleware' => ['web']], function () {
 
 // for admin
 Route::group(['middleware' => ['web','auth','admin']], function () {
+    Route::get ('/company',                     ['as' => 'company_index',           'uses' => 'CompanyController@index']);
 
+    Route::get ('/company/create',              ['as' => 'company_create',          'uses' => 'CompanyController@create']);
+    Route::post('/company/create',              ['as' => 'company_create_submit',   'uses' => 'CompanyController@create_submit']);
+
+    Route::get ('/company/edit/{id}',           ['as' => 'company_edit',            'uses' => 'CompanyController@edit']);
+    Route::post('/company/edit',                ['as' => 'company_edit_submit',     'uses' => 'CompanyController@edit_submit']);
 });
 
 // for salesman
 Route::group(['middleware' => ['web','auth','salesman']], function () {
-    // product
     Route::get ('/product',                     ['as' => 'product_index',           'uses' => 'ProductController@index']);
     Route::get ('/product/view/{id}',           ['as' => 'product_view',            'uses' => 'ProductController@view']);
 
