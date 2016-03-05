@@ -26,7 +26,7 @@ class OrderController extends Controller
 
     public function product() {
 
-        $data = \Input::get();
+        $data = \Request::get();
 
         try {
 
@@ -62,9 +62,9 @@ class OrderController extends Controller
     public function create_submit() {
 
         $product = new Product();
-        $product->name = \Input::get('name');
-        $product->desc = \Input::get('desc');
-        $product->quantity = \Input::get('quantity');
+        $product->name = \Request::get('name');
+        $product->desc = \Request::get('desc');
+        $product->quantity = \Request::get('quantity');
         $product->salesman = \Auth::user()->id;
         $product->status = 'SALE';
         $product->save();
@@ -94,10 +94,10 @@ class OrderController extends Controller
 
     public function edit_submit() {
 
-        $product = Product::find(\Input::get('product_id'));
-        $product->name = \Input::get('name');
-        $product->desc = \Input::get('desc');
-        $product->quantity = \Input::get('quantity');
+        $product = Product::find(\Request::get('product_id'));
+        $product->name = \Request::get('name');
+        $product->desc = \Request::get('desc');
+        $product->quantity = \Request::get('quantity');
         $product->save();
 
         return \Redirect()->action('ProductController@index');
@@ -115,7 +115,7 @@ class OrderController extends Controller
     }
 
     public function destory_submit() {
-        $product = Product::find(\Input::get('product_id'));
+        $product = Product::find(\Request::get('product_id'));
         $product->status = 'STOP';
         $product->save();
 

@@ -23,7 +23,7 @@ class CompanyController extends Controller
     public function create_submit() {
 
         $company = new Company();
-        $company->name = \Input::get('name');
+        $company->name = \Request::input('name');
         $company->status = 'Y';
         $company->save();
 
@@ -42,9 +42,9 @@ class CompanyController extends Controller
 
     public function edit_submit() {
 
-        $company = Company::find(\Input::get('company_id'));
-        $company->name = \Input::get('name');
-        $company->status = \Input::get('status_group');
+        $company = Company::find(\Request::input('company_id'));
+        $company->name = \Request::input('name');
+        $company->status = \Request::input('status_group');
         $company->save();
 
         return \Redirect()->action('CompanyController@index');

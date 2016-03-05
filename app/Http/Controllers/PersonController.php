@@ -28,14 +28,12 @@ class PersonController extends Controller
 
     public function edit_submit() {
 
-        \Log::info(\Input::get());
-
-        $person = Person::find(\Input::get('person_id'));
-        $person->name = \Input::get('name');
-        $person->email = \Input::get('email');
-        $person->admin_yn = \Input::get('auth_admin')?'Y':'N';
-        $person->salesman_yn = \Input::get('auth_salesman')?'Y':'N';
-        $person->client_yn = \Input::get('auth_client')?'Y':'N';
+        $person = Person::find(\Request::get('person_id'));
+        $person->name = \Request::get('name');
+        $person->email = \Request::get('email');
+        $person->admin_yn = \Request::get('auth_admin')?'Y':'N';
+        $person->salesman_yn = \Request::get('auth_salesman')?'Y':'N';
+        $person->client_yn = \Request::get('auth_client')?'Y':'N';
         $person->save();
 
         return \Redirect()->action('PersonController@index');
