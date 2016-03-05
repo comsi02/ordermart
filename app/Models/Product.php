@@ -10,6 +10,6 @@ class Product extends Model
 
     public function salesman()
     {
-        return $this->belongTo('Salesman')->select(['id','name']);
+        return $this->belongsTo('App\Models\Salesman','user_id');
     }
 }

@@ -46,11 +46,9 @@ class ProductController extends Controller
 
     public function edit($id) {
         $product = Product::find($id);
-        $salesman = Salesman::find($product->salesman);
 
         $data = [
             'product' => $product,
-            'salesman' => $salesman,
         ];
 
         return view('product.edit', compact('data'));

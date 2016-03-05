@@ -34,7 +34,7 @@
           </tr>
           <tr>
             <td>영업사원</td>
-            <td>{{$data['salesman']['name']}}</td>
+            <td>{{$data['product']->salesman['name']}}</td>
           </tr>
         </table>
         <div class="box-footer">
