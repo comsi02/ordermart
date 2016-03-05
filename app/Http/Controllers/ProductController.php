@@ -27,7 +27,7 @@ class ProductController extends Controller
         $product->name = \Input::get('name');
         $product->desc = \Input::get('desc');
         $product->quantity = \Input::get('quantity');
-        $product->salesman = \Auth::user()->id;
+        $product->user_id = \Auth::user()->id;
         $product->status = 'SALE';
         $product->save();
 
@@ -82,7 +82,7 @@ class ProductController extends Controller
     }
 
     public function order($salesman) {
-        $products = Product::where('status','SALE')->where('salesman',$salesman)->paginate(5);
+        $products = Product::where('status','SALE')->where('user_id',$salesman)->paginate(5);
         return view('product.order', compact('products'));
     }
 

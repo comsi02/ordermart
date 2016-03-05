@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\Salesman;
+use App\Models\Person;
 use App\Models\Order;
 use App\Models\Product;
 
@@ -15,7 +15,7 @@ class OrderController extends Controller
 {
     public function index() {
 
-        $salesman = Salesman::paginate(5);
+        $salesman = Person::paginate(5);
 
         $data = [
             'salesman' => $salesman
