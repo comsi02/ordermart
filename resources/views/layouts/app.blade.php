@@ -217,7 +217,7 @@ desired effect
           <a href="#"><i class="fa fa-link"></i> <span>관리자</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li><a href="/company"><i class="fa fa-circle-o"></i>거래처관리</a></li>
-            <li><a href="/user"><i class="fa fa-circle-o"></i>사용자관리</a></li>
+            <li><a href="/person"><i class="fa fa-circle-o"></i>사용자관리</a></li>
           </ul>
         </li>
         <li class="treeview active">

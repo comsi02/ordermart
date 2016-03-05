@@ -29,13 +29,17 @@ Route::group(['middleware' => ['web']], function () {
 
 // for admin
 Route::group(['middleware' => ['web','auth','admin']], function () {
+    // 거래처 관리
     Route::get ('/company',                     ['as' => 'company_index',           'uses' => 'CompanyController@index']);
-
     Route::get ('/company/create',              ['as' => 'company_create',          'uses' => 'CompanyController@create']);
     Route::post('/company/create',              ['as' => 'company_create_submit',   'uses' => 'CompanyController@create_submit']);
-
     Route::get ('/company/edit/{id}',           ['as' => 'company_edit',            'uses' => 'CompanyController@edit']);
     Route::post('/company/edit',                ['as' => 'company_edit_submit',     'uses' => 'CompanyController@edit_submit']);
+
+    // 사용자 관리
+    Route::get ('/person',                      ['as' => 'person_index',            'uses' => 'PersonController@index']);
+    Route::get ('/person/edit/{id}',            ['as' => 'person_edit',             'uses' => 'PersonController@edit']);
+    Route::post('/person/edit',                 ['as' => 'person_edit_submit',      'uses' => 'PersonController@edit_submit']);
 });
 
 // for salesman

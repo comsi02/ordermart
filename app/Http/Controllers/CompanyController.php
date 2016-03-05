@@ -42,8 +42,6 @@ class CompanyController extends Controller
 
     public function edit_submit() {
 
-        \Log::info(\Input::get());
-
         $company = Company::find(\Input::get('company_id'));
         $company->name = \Input::get('name');
         $company->status = \Input::get('status_group');
