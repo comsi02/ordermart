@@ -25,7 +25,15 @@
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
     Route::get('/', 'HomeController@index');
+});
 
+// for admin
+Route::group(['middleware' => ['web','auth','admin']], function () {
+
+});
+
+// for salesman
+Route::group(['middleware' => ['web','auth','salesman']], function () {
     // product
     Route::get ('/product',                     ['as' => 'product_index',           'uses' => 'ProductController@index']);
     Route::get ('/product/view/{id}',           ['as' => 'product_view',            'uses' => 'ProductController@view']);
@@ -40,7 +48,10 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get ('/product/order/{salesman}',    ['as' => 'product_order',           'uses' => 'ProductController@order']);
     Route::get ('/product/order/view/{id}',     ['as' => 'product_order_view',      'uses' => 'ProductController@order_view']);
+});
 
+// for client
+Route::group(['middleware' => ['web','auth','client']], function () {
     // order
     Route::get ('/order',                       ['as' => 'order_index',             'uses' => 'OrderController@index']);
     Route::post('/order/product',               ['as' => 'order_proudct',           'uses' => 'OrderController@product']);
