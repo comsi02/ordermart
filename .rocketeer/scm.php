@@ -10,7 +10,7 @@ return [
 
     // The SSH/HTTPS address to your repository
     // Example: https://github.com/vendor/website.git
-    'repository' => '',
+    'repository' => 'https://github.com/comsi02/ordermart.git',
 
     // The repository credentials : you can leave those empty
     // if you're using SSH or if your repository is public

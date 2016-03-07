@@ -1,6 +1,7 @@
 <?php
 
 use Rocketeer\Services\Connections\ConnectionsHandler;
+date_default_timezone_set('Asia/Seoul');
 
 return [
 
@@ -38,10 +39,10 @@ return [
     // and store them locally
     'connections'      => [
         'production' => [
-            'host'      => '',
-            'username'  => '',
+            'host'      => '52.79.97.67',
+            'username'  => 'ec2-user',
             'password'  => '',
-            'key'       => '/Users/comsi02/.ssh/id_rsa',
+            'key'       => '/Users/comsi02/Dropbox/Development/ordermart/keystore/ordermartserver.pem',
             'keyphrase' => '',
             'agent'     => '',
             'db_role'   => true,

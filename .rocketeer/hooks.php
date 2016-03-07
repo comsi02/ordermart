@@ -24,7 +24,21 @@ return [
     // Tasks to execute after the core Rocketeer Tasks
     'after'  => [
         'setup'   => [],
-        'deploy'  => [],
+        'deploy'  => [
+            function($task) {
+                $task->command->info('Start chanage Permission : ');
+                $task->setPermissions('storage');
+                $task->setPermissions('bootstrap/cache');
+
+                $task->command->info('Permission change Complete!');
+                $task->runForCurrentRelease('php /home/www/ordermart/current/artisan migrate --force');
+                $task->runForCurrentRelease('php /home/www/ordermart/current/artisan cache:clear');
+                $task->runForCurrentRelease('php /home/www/ordermart/current/artisan route:cache');
+                $task->runForCurrentRelease('sudo service php-fpm reload');
+                #$task->runForCurrentRelease('composer.phar self-update');
+                #$task->runForCurrentRelease('composer.phar dump-autoload');
+            }
+        ],
         'cleanup' => [],
     ],
 

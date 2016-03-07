@@ -13,12 +13,12 @@ return [
     ////////////////////////////////////////////////////////////////////
 
     // Path to the PHP binary
-    'php'      => '',
+    'php'      => '/usr/bin/php',
 
     // Path to Composer
-    'composer' => '',
+    'composer' => '/usr/local/bin/composer',
 
     // Path to the Artisan CLI
-    'artisan'  => 'artisan',
+    'artisan'  => '/home/www/ordermart/current/artisan',
 
 ];

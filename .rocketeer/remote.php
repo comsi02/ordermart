@@ -31,7 +31,7 @@ return [
     // user uploaded data, file-based databases, etc.
     'shared'         => [
         'storage/logs',
-        'storage/sessions',
+        'storage/framework/sessions',
     ],
 
     // Execution
@@ -42,7 +42,7 @@ return [
     'shell'          => false,
 
     // An array of commands to run under shell
-    'shelled'        => ['which', 'ruby', 'npm', 'bower', 'bundle', 'grunt'],
+    'shelled'        => [],
 
     // Enable use of sudo for some commands
     // You can specify a sudo user by doing
@@ -59,9 +59,8 @@ return [
 
         // The folders and files to set as web writable
         'files'    => [
-            'app/database/production.sqlite',
             'storage',
-            'public',
+            'bootstrap/cache',
         ],
 
         // Here you can configure what actions will be executed to set
@@ -70,8 +69,6 @@ return [
         'callback' => function ($task, $file) {
             return [
                 sprintf('chmod -R 755 %s', $file),
-                sprintf('chmod -R g+s %s', $file),
-                sprintf('chown -R www-data:www-data %s', $file),
             ];
         },
 
