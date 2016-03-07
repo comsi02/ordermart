@@ -16,7 +16,7 @@ return [
     'php'      => '/usr/bin/php',
 
     // Path to Composer
-    'composer' => '/usr/local/bin/composer',
+    'composer' => '/usr/local/bin/composer.phar',
 
     // Path to the Artisan CLI
     'artisan'  => '/home/www/ordermart/current/artisan',

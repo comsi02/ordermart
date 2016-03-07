@@ -4,3 +4,6 @@ Homestead.yaml
 Homestead.json
 *.sw*
 composer.lock
+
+# rocketeer
+.rocketeer/logs

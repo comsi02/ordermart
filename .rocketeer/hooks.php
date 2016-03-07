@@ -31,12 +31,12 @@ return [
                 $task->setPermissions('bootstrap/cache');
 
                 $task->command->info('Permission change Complete!');
-                $task->runForCurrentRelease('php /home/www/ordermart/current/artisan migrate --force');
-                $task->runForCurrentRelease('php /home/www/ordermart/current/artisan cache:clear');
-                $task->runForCurrentRelease('php /home/www/ordermart/current/artisan route:cache');
+                $task->runForCurrentRelease('php artisan migrate --force');
+                $task->runForCurrentRelease('php artisan cache:clear');
+                $task->runForCurrentRelease('php artisan route:cache');
                 $task->runForCurrentRelease('sudo service php-fpm reload');
-                #$task->runForCurrentRelease('composer.phar self-update');
-                #$task->runForCurrentRelease('composer.phar dump-autoload');
+                $task->runForCurrentRelease('sudo /usr/local/bin/composer.phar self-update');
+                $task->runForCurrentRelease('sudo /usr/local/bin/composer.phar dump-autoload');
             }
         ],
         'cleanup' => [],
