@@ -55,7 +55,7 @@ Route::group(['middleware' => ['web','auth','salesman']], function () {
 
     Route::post('/product/destory',             ['as' => 'product_destory',         'uses' => 'ProductController@destory']);
 
-    Route::get ('/product/order/{salesman}',    ['as' => 'product_order',           'uses' => 'ProductController@order']);
+    Route::get ('/product/order',               ['as' => 'product_order',           'uses' => 'ProductController@order']);
     Route::get ('/product/order/view/{id}',     ['as' => 'product_order_view',      'uses' => 'ProductController@order_view']);
 });
 

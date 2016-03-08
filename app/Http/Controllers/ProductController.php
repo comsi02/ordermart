@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Product;
+use App\Models\Order;
 
 class ProductController extends Controller
 {
@@ -80,16 +81,17 @@ class ProductController extends Controller
         return \Response::json(['result' => 'success']);
     }
 
-    public function order($salesman) {
-        $products = Product::where('status','SALE')->where('user_id',$salesman)->paginate(5);
-        return view('product.order', compact('products'));
+    public function order() {
+        $user_id = \Auth::user()->id;
+        $orders = Order::where('user_id',$user_id)->orderBy('id','desc')->paginate(5);
+        return view('product.order', compact('orders'));
     }
 
     public function order_view($id) {
-        $product = Product::find($id);
+        $order = Order::find($id);
 
         $data = [
-            'product' => $product
+            'order' => $order
         ];
 
         return view('product.order_view', compact('data'));

@@ -1,42 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-
-                <div class="panel-heading">Products</div>
-
-                <div class="panel-body">
-
-                    <!-- body start -->
-                    <div class="table">
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>상품ID</th>
-                                    <th>상품명</th>
-                                    <th>판매가능수량</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($products as $item)
-                                <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td><a href="{{ url('product/view/'.$item->id) }}">{{ $item->name }}</a></td>
-                                    <td>{{ $item->quantity }}</td>
-                                    <td>
-                                        <a href="{{ url('product/order/view/'.$item->id) }}">
-                                            <button type="submit" class="btn btn-primary">주문</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <div class="pagination"> {!! $products->render() !!} </div>
-                    </div>
-                    <!-- body start -->
-
-                </div>
-
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">주문확인</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>주문ID</th>
+            <th>수량</th>
+            <th>상태</th>
+            <th>주문자</th>
+            <th>기능</th>
+          </tr>
+          @foreach($orders as $o)
+          <tr>
+            <td>{{ $o->id }}</td>
+            <td>{{ $o->quantity }}</td>
+            <td>{{ $o->status }}</td>
+            <td>{{ $o->user_id}}</td>
+            <td>
+              <a href="{{ url('product/order/view/'.$o->id) }}">
+                <button type="submit" class="btn btn-primary">상세보기</button>
+              </a>
+            </td>
+          </tr>
+          @endforeach
+        </table>
+        <div class="pull-right"> {!! $orders->render() !!} </div>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
