@@ -30,7 +30,7 @@
             </td>
             <td>
               <a href="{{ url('company/edit/'.$c->id) }}">
-                <button type="submit" class="btn btn-primary btn-xs">상세보기</button>
+                <button type="submit" class="btn btn-primary">상세보기</button>
               </a>
             </td>
           </tr>

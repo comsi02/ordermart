@@ -38,7 +38,7 @@
           </tr>
         </table>
         <div class="box-footer">
-            <button type="button" class="btn btn-danger" id="product_destory">취소</button>
+            <button type="button" class="btn btn-danger" id="product_destory" onclick="window.history.back();">취소</button>
             <button type="submit" class="btn btn-primary pull-right">구매</button>
         </div>
         </form>

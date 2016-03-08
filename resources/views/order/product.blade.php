@@ -23,7 +23,7 @@
             </td>
             <td>
                 <a href="{{ url('order/product/view/'.$p->id) }}">
-                    <button type="submit" class="btn btn-primary btn-xs">구매</button>
+                    <button type="submit" class="btn btn-primary">구매</button>
                 </a>
             </td>
           </tr>

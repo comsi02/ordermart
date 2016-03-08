@@ -19,7 +19,7 @@
             <td>{{ $c->name }}</td>
             <td>
               <a href="{{ url('order/person/'.$c->id) }}">
-                <button type="submit" class="btn btn-primary btn-xs">선택</button>
+                <button type="submit" class="btn btn-primary">선택</button>
               </a>
             </td>
           </tr>

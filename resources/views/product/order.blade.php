@@ -25,7 +25,7 @@
                                     <td>{{ $item->quantity }}</td>
                                     <td>
                                         <a href="{{ url('product/order/view/'.$item->id) }}">
-                                            <button type="submit" class="btn btn-primary btn-xs">주문</button>
+                                            <button type="submit" class="btn btn-primary">주문</button>
                                         </a>
                                     </td>
                                 </tr>

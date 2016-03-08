@@ -31,7 +31,7 @@
             <td>{{$p->company['name']}}</td>
             <td>
               <a href="{{ url('person/edit/'.$p->id) }}">
-                <button type="submit" class="btn btn-primary btn-xs">상세보기</button>
+                <button type="submit" class="btn btn-primary">상세보기</button>
               </a>
             </td>
           </tr>
