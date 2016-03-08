@@ -229,7 +229,7 @@ desired effect
         <li class="treeview active">
           <a href="#"><i class="fa fa-link"></i> <span>고객</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-            <li><a href="/order"><i class="fa fa-circle-o"></i>주문</a></li>
+            <li><a href="/order/company"><i class="fa fa-circle-o"></i>주문</a></li>
           </ul>
         </li>
 

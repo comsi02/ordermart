@@ -61,8 +61,11 @@ Route::group(['middleware' => ['web','auth','salesman']], function () {
 
 // for client
 Route::group(['middleware' => ['web','auth','client']], function () {
-    // order
-    Route::get ('/order',                       ['as' => 'order_index',             'uses' => 'OrderController@index']);
-    Route::post('/order/product',               ['as' => 'order_proudct',           'uses' => 'OrderController@product']);
+    // 주문
+    Route::get ('/order/company',               ['as' => 'order_company',           'uses' => 'OrderController@company']);
+    Route::get ('/order/person/{company_id}',   ['as' => 'order_person',            'uses' => 'OrderController@person']);
+    Route::get ('/order/product/{person_id}',   ['as' => 'order_product',           'uses' => 'OrderController@product']);
+    Route::get ('/order/product/view/{id}',     ['as' => 'order_product_view',      'uses' => 'OrderController@product_view']);
+    Route::post('/order/product',               ['as' => 'order_product_submit',    'uses' => 'OrderController@product_submit']);
 });
 

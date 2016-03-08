@@ -38,7 +38,8 @@ class EventServiceProvider extends ServiceProvider
                 $title = "견적서";
                 $data = [
                     'product_name' => $data['product_id'],
-                    'item_count' => $data['item_count'],
+                    #'item_count' => $data['item_count'],
+                    'item_count' => 1,
                 ];
 
                 \Mail::send(['html' => 'emails.default'], $data, function($message) use ($title) {
