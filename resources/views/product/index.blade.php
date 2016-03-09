@@ -6,7 +6,7 @@
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">상품</h3>
-        <a href="{{ url('product/create') }}" class="btn btn-primary pull-right btn-sm">상품추가</a>
+        <a href="{{ url('product/create') }}" class="btn btn-primary pull-right">상품추가</a>
       </div>
       <!-- /.box-header -->
       <div class="box-body">

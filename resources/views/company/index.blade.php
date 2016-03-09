@@ -6,9 +6,8 @@
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">거래처</h3>
-        <a href="{{ url('company/create') }}" class="btn btn-primary pull-right btn-sm">거래처추가</a>
+        <a href="{{ url('company/create') }}" class="btn btn-primary pull-right">거래처추가</a>
       </div>
-      <!-- /.box-header -->
       <div class="box-body">
         <table class="table table-bordered">
           <tr>
