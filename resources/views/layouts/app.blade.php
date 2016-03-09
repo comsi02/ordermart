@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="{{ Asset::version('dist/css/skins/_all-skins.min.css') }}"/>
+  <link rel="stylesheet" href="{{ Asset::version('dist/css/skins/skin-orange.css') }}"/>
 
   <!-- yield css start -->
   @yield('css')
@@ -47,6 +47,7 @@ desired effect
 |               | skin-yellow                             |
 |               | skin-red                                |
 |               | skin-green                              |
+|               | skin-orange (by comsi02)                |
 |---------------------------------------------------------|
 |LAYOUT OPTIONS | fixed                                   |
 |               | layout-boxed                            |
@@ -55,7 +56,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-orange sidebar-mini">
 <div class="wrapper">
 
 <!-- 여기 부터 정리 -->
