@@ -5,9 +5,8 @@
   <div class="col-md-12">
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">상품수정</h3>
+        <h3 class="box-title">거래처 수정</h3>
       </div>
-      <!-- /.box-header -->
       <div class="box-body">
         <form method="post" action="{{ URL::route('company_edit_submit') }}" id="company_create_submit">
         <input type="hidden" name="company_id" value="{{$data['company']['id']}}">
@@ -17,18 +16,18 @@
             <th width="80%;">내용</th>
           </tr>
           <tr>
-            <td>상품ID</td>
+            <td>거래처ID</td>
             <td>{{$data['company']['id']}}</td>
           </tr>
           <tr>
-            <td>상품명</td>
+            <td>거래처명</td>
             <td><input type="text" class="form-control" name="name" value="{{$data['company']['name']}}"></td>
           </tr>
           <tr>
             <td>상태</td>
             <td>
-              <input type="radio" name="status_group" value="Y" @if ($data['company']['status'] == 'Y') checked @endif>영업중
-              <input type="radio" name="status_group" value="N" @if ($data['company']['status'] == 'N') checked @endif>영업완료
+              <input type="radio" name="status_group" id="status_y" value="Y" @if ($data['company']['status'] == 'Y') checked @endif><label for="status_y">영업중</label><br>
+              <input type="radio" name="status_group" id="status_n" value="N" @if ($data['company']['status'] == 'N') checked @endif><label for="status_n">영업종료</label>
             </td>
           </tr>
         </table>
