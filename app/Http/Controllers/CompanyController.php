@@ -42,8 +42,24 @@ class CompanyController extends Controller
 
     public function edit_submit() {
 
+        $data = \Request::all();
+
+        $aws_filename = sha1($data['name']);
+
+        $filename = $data['image']->getClientOriginalName();
+        $data['image']->move("/tmp/", $filename);
+
+        $s3 = \App::make('aws')->createClient('s3');
+        $s3->putObject(array(
+            'ACL'        => 'public-read',
+            'Bucket'     => env('AWS_S3_BUCKET'),
+            'Key'        => "company/$aws_filename",
+            'SourceFile' => "/tmp/$filename",
+        ));
+
         $company = Company::find(\Request::input('company_id'));
         $company->name = \Request::input('name');
+        $company->ci = $aws_filename;
         $company->status = \Request::input('status_group');
         $company->save();
 

@@ -11,14 +11,14 @@
       <div class="box-body">
         <table class="table table-bordered">
           <tr>
-            <th>거래처ID</th>
+            <th>CI</th>
             <th>거래처명</th>
             <th>상태</th>
             <th>기능</th>
           </tr>
           @foreach($company as $c)
           <tr>
-            <td>{{ $c->id }}</td>
+            <td><img src="{{env('AWS_S3_URL')}}/company/{{$c->ci}}" style="width:100px;"></td>
             <td>{{ $c->name }}</td>
             <td>
               @if ($c->status == 'Y')

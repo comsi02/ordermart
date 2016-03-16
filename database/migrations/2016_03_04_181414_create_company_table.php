@@ -16,6 +16,7 @@ class CreateCompanyTable extends Migration
             $table->increments('id');
             $table->string('name')->comment('회사명');
             $table->string('status')->comment('상태');
+            $table->string('ci')->comment('대표이미지');
             $table->timestamps();
         });
     }

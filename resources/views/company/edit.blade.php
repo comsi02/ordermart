@@ -8,16 +8,25 @@
         <h3 class="box-title">거래처 수정</h3>
       </div>
       <div class="box-body">
-        <form method="post" action="{{ URL::route('company_edit_submit') }}" id="company_create_submit">
+        <form method="post" enctype="multipart/form-data" action="{{ URL::route('company_edit_submit') }}" id="company_create_submit">
         <input type="hidden" name="company_id" value="{{$data['company']['id']}}">
         <table class="table table-bordered">
           <tr>
-            <th width="20%;">항목</th>
-            <th width="80%;">내용</th>
+            <th>항목</th>
+            <th>내용</th>
           </tr>
           <tr>
-            <td>거래처ID</td>
+            <td>ID</td>
             <td>{{$data['company']['id']}}</td>
+          </tr>
+          <tr>
+            <td>이미지</td>
+            <td>
+                <div id="imagePreview">
+                    <img id="company_ci_img" src="{{env('AWS_S3_URL')}}/company/{{$data['company']['ci']}}" style="width:140px;height:140px;">
+                </div>
+                <input type="file" name="image" id="image" onchange="InputImage()">
+            </td>
           </tr>
           <tr>
             <td>거래처명</td>
@@ -39,4 +48,39 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    var InputImage = (function loadImageFile() {
+        if (window.FileReader) {
+            var ImagePre,
+                ImgReader = new window.FileReader(),
+                fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
+
+            ImgReader.onload = function (event) {
+                if (!ImagePre) {
+                    var newPreview = document.getElementById("imagePreview");
+                    ImagePre = new Image();
+                    ImagePre.style.width = "140px";
+                    ImagePre.style.height = "140px";
+                    newPreview.appendChild(ImagePre);
+                }
+                ImagePre.src = event.target.result;
+            };
+
+            return function () {
+                var img = document.getElementById("image").files;
+                if (!fileType.test(img[0].type)) {
+                    alert("이미지 파일을 업로드 하세요");
+                    return;
+                }
+                ImgReader.readAsDataURL(img[0]);
+            }
+        }
+        document.getElementById("imagePreview").src = document.getElementById("image").value;
+    })();
+
+
+</script>
 @endsection
