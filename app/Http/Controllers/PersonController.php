@@ -28,12 +28,28 @@ class PersonController extends Controller
 
     public function edit_submit() {
 
-        $person = Person::find(\Request::get('person_id'));
-        $person->name = \Request::get('name');
-        $person->email = \Request::get('email');
-        $person->admin_yn = \Request::get('auth_admin')?'Y':'N';
-        $person->salesman_yn = \Request::get('auth_salesman')?'Y':'N';
-        $person->client_yn = \Request::get('auth_client')?'Y':'N';
+        $data = \Request::all();
+
+        $aws_filename = sha1($data['name']);
+
+        $filename = $data['image']->getClientOriginalName();
+        $data['image']->move("/tmp/", $filename);
+
+        $s3 = \App::make('aws')->createClient('s3');
+        $s3->putObject(array(
+            'ACL'        => 'public-read',
+            'Bucket'     => env('AWS_S3_BUCKET'),
+            'Key'        => "person/$aws_filename",
+            'SourceFile' => "/tmp/$filename",
+        ));
+
+        $person = Person::find($data['person_id']);
+        $person->name = $data['name'];
+        $person->email = $data['email'];
+        $person->admin_yn = $data['auth_admin']?'Y':'N';
+        $person->salesman_yn = $data['auth_salesman']?'Y':'N';
+        $person->client_yn = $data['auth_client']?'Y':'N';
+        $person->image = $aws_filename;
         $person->save();
 
         return \Redirect()->action('PersonController@index');

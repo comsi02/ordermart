@@ -13,6 +13,7 @@ class AddColumnUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->after('remember_token')->comment('사용자이미지');
             $table->integer('company_id')->after('remember_token')->unsigned()->comment('회사ID');
             $table->enum('client_yn',   array('Y', 'N'))->default('Y')->after('remember_token')->comment('Y:client,   N:not client');
             $table->enum('salesman_yn', array('Y', 'N'))->default('N')->after('remember_token')->comment('Y:salesman, N:not salesman');
@@ -28,6 +29,7 @@ class AddColumnUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('image');
             $table->dropColumn('company_id');
             $table->dropColumn('client_yn');
             $table->dropColumn('salesman_yn');
