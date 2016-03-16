@@ -22,9 +22,25 @@ class CompanyController extends Controller
 
     public function create_submit() {
 
+        $data = \Request::all();
+
+        $aws_filename = sha1($data['name']);
+
+        $filename = $data['image']->getClientOriginalName();
+        $data['image']->move("/tmp/", $filename);
+
+        $s3 = \App::make('aws')->createClient('s3');
+        $s3->putObject(array(
+            'ACL'        => 'public-read',
+            'Bucket'     => env('AWS_S3_BUCKET'),
+            'Key'        => "company/$aws_filename",
+            'SourceFile' => "/tmp/$filename",
+        ));
+
         $company = new Company();
-        $company->name = \Request::input('name');
-        $company->status = 'Y';
+        $company->name = $data['name'];
+        $company->ci = $aws_filename;
+        $company->status = $data['status_group'];
         $company->save();
 
         return \Redirect()->action('CompanyController@index');
@@ -58,9 +74,9 @@ class CompanyController extends Controller
         ));
 
         $company = Company::find(\Request::input('company_id'));
-        $company->name = \Request::input('name');
+        $company->name = $data['name'];
         $company->ci = $aws_filename;
-        $company->status = \Request::input('status_group');
+        $company->status = $data['status_group'];
         $company->save();
 
         return \Redirect()->action('CompanyController@index');

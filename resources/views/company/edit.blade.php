@@ -20,7 +20,7 @@
             <td>{{$data['company']['id']}}</td>
           </tr>
           <tr>
-            <td>이미지</td>
+            <td>CI</td>
             <td>
                 <div id="imagePreview">
                     <img id="company_ci_img" src="{{env('AWS_S3_URL')}}/company/{{$data['company']['ci']}}" style="width:140px;height:140px;">
@@ -80,7 +80,5 @@
         }
         document.getElementById("imagePreview").src = document.getElementById("image").value;
     })();
-
-
 </script>
 @endsection
