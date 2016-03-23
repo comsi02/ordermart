@@ -54,5 +54,33 @@ class PersonController extends Controller
 
         return \Redirect()->action('PersonController@index');
     }
+
+    public function profile() {
+
+        $person = Person::find(\Auth::user()->id);
+
+        $data = [
+            'person' => $person,
+        ];
+
+        return view('person.profile', compact('data'));
+    }
+
+    public function profile_submit() {
+
+        $data = \Request::all();
+
+        if (isset($data['image'])) {
+            $res = \Common::s3_upload($data['image'],'person/');
+
+            if ($res['success']) {
+                $person = Person::find(\Auth::user()->id);
+                $person->image = $res['filename'];
+                $person->save();
+            }
+        }
+
+        return \Redirect()->action('PersonController@profile');
+    }
 }
 

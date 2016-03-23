@@ -61,6 +61,10 @@ Route::group(['middleware' => ['web','auth','salesman']], function () {
 
 // for client
 Route::group(['middleware' => ['web','auth','client']], function () {
+    // Profile
+    Route::get ('/profile',                     ['as' => 'profile',                 'uses' => 'PersonController@profile']);
+    Route::post('/profile',                     ['as' => 'profile_submit',          'uses' => 'PersonController@profile_submit']);
+
     // 주문
     Route::get ('/order/company',               ['as' => 'order_company',           'uses' => 'OrderController@company']);
     Route::get ('/order/person/{company_id}',   ['as' => 'order_person',            'uses' => 'OrderController@person']);
