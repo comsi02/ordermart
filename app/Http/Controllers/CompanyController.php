@@ -24,22 +24,16 @@ class CompanyController extends Controller
 
         $data = \Request::all();
 
-        $aws_filename = sha1($data['name']);
-
-        $filename = $data['image']->getClientOriginalName();
-        $data['image']->move("/tmp/", $filename);
-
-        $s3 = \App::make('aws')->createClient('s3');
-        $s3->putObject(array(
-            'ACL'        => 'public-read',
-            'Bucket'     => env('AWS_S3_BUCKET'),
-            'Key'        => "company/$aws_filename",
-            'SourceFile' => "/tmp/$filename",
-        ));
-
         $company = new Company();
         $company->name = $data['name'];
-        $company->ci = $aws_filename;
+
+        if (isset($data['image'])) {
+            $res = \Common::s3_upload($data['image'],'company/');
+            if ($res['success']) {
+                $company->ci = $res['filename'];
+            }
+        }
+
         $company->status = $data['status_group'];
         $company->save();
 
@@ -60,22 +54,15 @@ class CompanyController extends Controller
 
         $data = \Request::all();
 
-        $aws_filename = sha1($data['name']);
-
-        $filename = $data['image']->getClientOriginalName();
-        $data['image']->move("/tmp/", $filename);
-
-        $s3 = \App::make('aws')->createClient('s3');
-        $s3->putObject(array(
-            'ACL'        => 'public-read',
-            'Bucket'     => env('AWS_S3_BUCKET'),
-            'Key'        => "company/$aws_filename",
-            'SourceFile' => "/tmp/$filename",
-        ));
-
         $company = Company::find(\Request::input('company_id'));
         $company->name = $data['name'];
-        $company->ci = $aws_filename;
+
+        if (isset($data['image'])) {
+            $res = \Common::s3_upload($data['image'],'company/');
+            if ($res['success']) {
+                $company->ci = $res['filename'];
+            }
+        }
         $company->status = $data['status_group'];
         $company->save();
 

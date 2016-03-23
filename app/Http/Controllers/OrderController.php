@@ -56,16 +56,6 @@ class OrderController extends Controller
 
     public function product_submit() {
 
-        $filename = 'ci_neowiz_games.png';
-
-        $s3 = \App::make('aws')->createClient('s3');
-        $s3->putObject(array(
-            'ACL'        => 'public-read',
-            'Bucket'     => env('AWS_S3_BUCKET'),
-            'Key'        => "company/$filename",
-            'SourceFile' => "/Users/comsi02/Downloads/$filename",
-        ));
-
         $data = \Request::input();
 
         try {
