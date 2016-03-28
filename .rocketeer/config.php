@@ -38,7 +38,7 @@ return [
     // to track files with credentials : Rocketeer will prompt you for your credentials
     // and store them locally
     'connections'      => [
-        'production' => [
+        'sync' => [
             'host'      => '52.79.97.67',
             'username'  => 'ec2-user',
             'password'  => '',
