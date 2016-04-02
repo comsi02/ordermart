@@ -17,6 +17,15 @@
             <th width="80%;">내용</th>
           </tr>
           <tr>
+            <td>사진</td>
+            <td>
+              <div id="imagePreview">
+                <img id="company_ci_img" src="" style="width:140px;height:140px;">
+              </div>
+              <input type="file" name="image" id="image" onchange="InputImage()">
+            </td>
+          </tr>
+          <tr>
             <td>상품ID</td>
             <td>{{$data['product']['id']}}</td>
           </tr>
@@ -57,5 +66,35 @@ $('#product_destory').on('click',function(){
         }
     });
 });
+
+var InputImage = (function loadImageFile() {
+    if (window.FileReader) {
+        var ImagePre,
+            ImgReader = new window.FileReader(),
+            fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
+
+        ImgReader.onload = function (event) {
+            if (!ImagePre) {
+                var newPreview = document.getElementById("imagePreview");
+                ImagePre = new Image();
+                ImagePre.style.width = "140px";
+                ImagePre.style.height = "140px";
+                newPreview.appendChild(ImagePre);
+            }
+            ImagePre.src = event.target.result;
+        };
+
+        return function () {
+            var img = document.getElementById("image").files;
+            if (!fileType.test(img[0].type)) {
+                alert("이미지 파일을 업로드 하세요");
+                return;
+            }
+            ImgReader.readAsDataURL(img[0]);
+        }
+    }
+    document.getElementById("imagePreview").src = document.getElementById("image").value;
+})();
+
 </script>
-@endsection
+

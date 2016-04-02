@@ -65,13 +65,12 @@ class OrderController extends Controller
             $order = new Order();
             $order->product_id = $data['product_id'];
             $order->user_id = \Auth::user()->id;
-            //$order->quantity = $data['item_count'];
-            $order->quantity = 1;
+            $order->quantity = $data['item_count'];
             $order->status = 'Inprogress';
             $order->save();
 
             // 견적서 메일 발송
-            \Event::fire('order.send_mail', [$data]);
+            //\Event::fire('order.send_mail', [$data]);
             \DB::commit();
 
         } catch (exception $e) {
@@ -79,7 +78,7 @@ class OrderController extends Controller
             #return \Response::json(['result' => 'error']);
         }
         #return \Response::json(['result' => 'success']);
-        return \Redirect::back();
+        return \Redirect()->route('order_product',1); // 영업사원 user_id 로 변경 해야 함.
     }
 
 /*

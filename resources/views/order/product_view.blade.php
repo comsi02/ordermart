@@ -79,6 +79,10 @@
             <td>영업사원</td>
             <td>{{$data['product']->salesman['name']}}</td>
           </tr>
+          <tr>
+            <td>구매수량</td>
+            <td><input type="number" name="item_count" placeholder="구매수량"></td>
+          </tr>
         </table>
         <div class="box-footer">
             <button type="button" class="btn btn-danger" id="product_destory" onclick="window.history.back();">취소</button>
