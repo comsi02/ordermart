@@ -35,7 +35,7 @@ class OrderController extends Controller
     }
 
     public function product($user_id) {
-        $product = Product::where('status','SALE')->where('user_id',$user_id)->orderBy('id', 'desc')->paginate(5);
+        $product = Order::get_product_list();
 
         $data = [
             'product' => $product

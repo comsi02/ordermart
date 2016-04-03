@@ -10,23 +10,12 @@ class Order extends Model
 
     public static function get_product_list()
     {
-        $query = "
-            select
-                p.*, 
-                p.quantity - sum(o.quantity) as remain_count,
-                sum(o.quantity) as total_quantity,
-                sum(if(o.status = 'booked',o.quantity,0)) as booked,
-                sum(if(o.status = 'inprogress',o.quantity,0)) as inprogress
-            from products p
-            inner join orders o on p.id = o.product_id
-            where o.status in ('bulk','booked','inprogress')
-            group by p.id
-       ";
+        $result = \DB::table('products as p')
+                    ->select(\DB::raw('p.*, p.quantity - sum(o.quantity) as remain_count, sum(o.quantity) as total_quantity, sum(if(o.status = \'booked\',o.quantity,0)) as booked, sum(if(o.status = \'inprogress\',o.quantity,0)) as inprogress, round(ifnull((p.quantity / sum(o.quantity)) * 10,0),0) as sales_ratio'))
+                    ->join('orders as o', 'p.id', '=', 'o.product_id')
+                    ->groupBy('p.id')
+                    ->paginate(5);
 
-        $res = DB::select($query);
-
-\Log::info($res);
-
-        
+        return $result;
     }
 }
