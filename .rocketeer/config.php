@@ -31,7 +31,7 @@ return [
     ////////////////////////////////////////////////////////////////////
 
     // The default remote connection(s) to execute tasks on
-    'default'          => ['production'],
+    'default'          => ['sync'],
 
     // The various connections you defined
     // You can leave all of this empty or remove it entirely if you don't want
