@@ -28,7 +28,9 @@ class CompanyController extends Controller
         $company->name = $data['name'];
 
         if (isset($data['image'])) {
-            $res = \Common::s3_upload($data['image'],'company/');
+            $file_name = \Common::get_img_filename($data['image']);
+            \Common::make_company_img($file_name);
+            $res = \Common::s3_upload($file_name,'company/');
             if ($res['success']) {
                 $company->ci = $res['filename'];
             }
@@ -58,7 +60,9 @@ class CompanyController extends Controller
         $company->name = $data['name'];
 
         if (isset($data['image'])) {
-            $res = \Common::s3_upload($data['image'],'company/');
+            $file_name = \Common::get_img_filename($data['image']);
+            \Common::make_company_img($file_name);
+            $res = \Common::s3_upload($file_name,'company/');
             if ($res['success']) {
                 $company->ci = $res['filename'];
             }
