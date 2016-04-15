@@ -31,6 +31,7 @@ return [
                 $task->setPermissions('bootstrap/cache');
 
                 $task->command->info('Permission change Complete!');
+                $task->runForCurrentRelease('cp /home/www/env/.env .env');
                 $task->runForCurrentRelease('php artisan migrate --force');
                 $task->runForCurrentRelease('php artisan cache:clear');
                 $task->runForCurrentRelease('php artisan route:cache');
