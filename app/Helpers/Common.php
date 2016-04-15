@@ -10,7 +10,7 @@ class Common {
         if (isset($img)) {
             $afinfo = explode('.',$img->getClientOriginalName());
             $s3_file_name = date('Ymd_His_').str_random(10).'.'.end($afinfo);
-            $img->move('/tmp/', $s3_file_name);
+            $img->move(env('UPLOAD_PATH'), $s3_file_name);
 
             $s3 = App::make('aws')->createClient('s3');
             try{
@@ -18,7 +18,7 @@ class Common {
                     'ACL' => 'public-read',
                     'Bucket' => env('AWS_S3_BUCKET'),
                     'Key' => $path.$s3_file_name,
-                    'SourceFile' => '/tmp/'.$s3_file_name
+                    'SourceFile' => env('UPLOAD_PATH').$s3_file_name
                 ]);
 
                 if ( strtolower($up) == 'the specified bucket does not exist') :
@@ -33,7 +33,7 @@ class Common {
             }catch(exception $e){
                 $result['message'] = 's3 error';
             }finally{
-                unlink('/tmp/'.$s3_file_name);
+                unlink(env('UPLOAD_PATH').$s3_file_name);
             }
         }
         return $result;
