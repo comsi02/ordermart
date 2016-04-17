@@ -9,7 +9,7 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <form method="post" action="{{ URL::route('product_edit_submit') }}" id="product_create_submit">
+        <form method="post" enctype="multipart/form-data" action="{{ URL::route('product_edit_submit') }}" id="product_create_submit">
         <input type="hidden" name="product_id" value="{{$data['product']['id']}}">
         <table class="table table-bordered">
           <tr>
@@ -20,7 +20,7 @@
             <td>사진</td>
             <td>
               <div id="imagePreview">
-                <img id="company_ci_img" src="" style="width:360;height:270px;">
+                <img id="company_ci_img" src="{{env('AWS_S3_URL')}}/product/{{$data['product_image']['img_name']}}" style="width:{{720/3}};height:{{405/3}};">
               </div>
               <input type="file" name="image" id="image" onchange="InputImage()">
             </td>
@@ -59,42 +59,41 @@
 
 @section('js')
 <script>
-$('#product_destory').on('click',function(){
-    $.post( '/product/destory', { 'product_id':"{{$data['product']['id']}}" }, function(data) {
-        if (data.result == 'success') {
-            window.history.back();
-        }
+    $('#product_destory').on('click',function(){
+        $.post( '/product/destory', { 'product_id':"{{$data['product']['id']}}" }, function(data) {
+            if (data.result == 'success') {
+                window.history.back();
+            }
+        });
     });
-});
 
-var InputImage = (function loadImageFile() {
-    if (window.FileReader) {
-        var ImagePre,
-            ImgReader = new window.FileReader(),
-            fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
+    var InputImage = (function loadImageFile() {
+        if (window.FileReader) {
+            var ImagePre,
+                ImgReader = new window.FileReader(),
+                fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
 
-        ImgReader.onload = function (event) {
-            if (!ImagePre) {
-                var newPreview = document.getElementById("imagePreview");
-                ImagePre = new Image();
-                ImagePre.style.width = "360px";
-                ImagePre.style.height = "270px";
-                newPreview.appendChild(ImagePre);
+            ImgReader.onload = function (event) {
+                if (!ImagePre) {
+                    var newPreview = document.getElementById("imagePreview");
+                    ImagePre = new Image();
+                    ImagePre.style.width = 720/3 + "px";
+                    ImagePre.style.height = 405/3 + "px";
+                    newPreview.appendChild(ImagePre);
+                }
+                ImagePre.src = event.target.result;
+            };
+
+            return function () {
+                var img = document.getElementById("image").files;
+                if (!fileType.test(img[0].type)) {
+                    alert("이미지 파일을 업로드 하세요");
+                    return;
+                }
+                ImgReader.readAsDataURL(img[0]);
             }
-            ImagePre.src = event.target.result;
-        };
-
-        return function () {
-            var img = document.getElementById("image").files;
-            if (!fileType.test(img[0].type)) {
-                alert("이미지 파일을 업로드 하세요");
-                return;
-            }
-            ImgReader.readAsDataURL(img[0]);
         }
-    }
-    document.getElementById("imagePreview").src = document.getElementById("image").value;
-})();
-
+        document.getElementById("imagePreview").src = document.getElementById("image").value;
+    })();
 </script>
-
+@endsection

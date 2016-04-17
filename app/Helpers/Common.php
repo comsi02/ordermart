@@ -19,10 +19,9 @@ class Common {
         $dummy_img->save(env('UPLOAD_PATH').$file_name, $img_quality);
     }
 
-    public static function make_product_img($file_name){
+    public static function make_product_img($file_name,$w=720){
         $img_quality = 100;
-        $w = 360;
-        $ratio = 4/3; // height = 270px;
+        $ratio = 16/9; // height = 405px;
         $dummy_img = Image::make(env('UPLOAD_PATH').$file_name);
         $dummy_img->fit($dummy_img->width(), intval($dummy_img->width() / $ratio));
         $dummy_img->resize($w, null, function($constraint){
