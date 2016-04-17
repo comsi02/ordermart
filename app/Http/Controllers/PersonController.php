@@ -38,7 +38,9 @@ class PersonController extends Controller
         $person->client_yn = isset($data['auth_client'])?'Y':'N';
 
         if (isset($data['image'])) {
-            $res = \Common::s3_upload($data['image'],'person/');
+            $file_name = \Common::get_img_filename($data['image']);
+            \Common::make_square_img($file_name,100);
+            $res = \Common::s3_upload($file_name,'person/');
             if ($res['success']) {
                 $person->image = $res['filename'];
             }
@@ -65,7 +67,9 @@ class PersonController extends Controller
         $data = \Request::all();
 
         if (isset($data['image'])) {
-            $res = \Common::s3_upload($data['image'],'person/');
+            $file_name = \Common::get_img_filename($data['image']);
+            \Common::make_square_img($file_name,100);
+            $res = \Common::s3_upload($file_name,'person/');
 
             if ($res['success']) {
                 $person = Person::find(\Auth::user()->id);

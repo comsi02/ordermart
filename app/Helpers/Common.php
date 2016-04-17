@@ -7,7 +7,7 @@ class Common {
         return $file_name;
     }
 
-    public static function make_company_img($file_name){
+    public static function make_square_img($file_name,$w=100){
         $img_quality = 100;
         $w = 100;
         $dummy_img = Image::make(env('UPLOAD_PATH').$file_name);
