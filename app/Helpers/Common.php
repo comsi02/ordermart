@@ -21,8 +21,8 @@ class Common {
 
     public static function make_product_img($file_name){
         $img_quality = 100;
-        $w = 720;
-        $ratio = 16/9;
+        $w = 360;
+        $ratio = 4/3; // height = 270px;
         $dummy_img = Image::make(env('UPLOAD_PATH').$file_name);
         $dummy_img->fit($dummy_img->width(), intval($dummy_img->width() / $ratio));
         $dummy_img->resize($w, null, function($constraint){

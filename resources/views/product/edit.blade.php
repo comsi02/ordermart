@@ -20,7 +20,7 @@
             <td>사진</td>
             <td>
               <div id="imagePreview">
-                <img id="company_ci_img" src="" style="width:140px;height:140px;">
+                <img id="company_ci_img" src="" style="width:360;height:270px;">
               </div>
               <input type="file" name="image" id="image" onchange="InputImage()">
             </td>
@@ -77,8 +77,8 @@ var InputImage = (function loadImageFile() {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview");
                 ImagePre = new Image();
-                ImagePre.style.width = "140px";
-                ImagePre.style.height = "140px";
+                ImagePre.style.width = "360px";
+                ImagePre.style.height = "270px";
                 newPreview.appendChild(ImagePre);
             }
             ImagePre.src = event.target.result;

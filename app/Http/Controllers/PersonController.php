@@ -39,7 +39,7 @@ class PersonController extends Controller
 
         if (isset($data['image'])) {
             $file_name = \Common::get_img_filename($data['image']);
-            \Common::make_square_img($file_name,100);
+            \Common::make_square_img($file_name,140);
             $res = \Common::s3_upload($file_name,'person/');
             if ($res['success']) {
                 $person->image = $res['filename'];
@@ -68,7 +68,7 @@ class PersonController extends Controller
 
         if (isset($data['image'])) {
             $file_name = \Common::get_img_filename($data['image']);
-            \Common::make_square_img($file_name,100);
+            \Common::make_square_img($file_name,140);
             $res = \Common::s3_upload($file_name,'person/');
 
             if ($res['success']) {
