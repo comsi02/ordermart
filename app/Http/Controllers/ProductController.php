@@ -8,7 +8,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Product;
-use App\Models\ProductImage;
 use App\Models\Order;
 
 class ProductController extends Controller
@@ -47,11 +46,11 @@ class ProductController extends Controller
 
     public function edit($id) {
         $product = Product::find($id);
-        $product_image = ProductImage::where('product_id',$id)->get()[0];
+        $product_image = json_decode($product->images);
 
         $data = [
             'product' => $product,
-            'product_image' => $product_image
+            'product_image' => $product_image[0],
         ];
 
         return view('product.edit', compact('data'));
@@ -65,24 +64,22 @@ class ProductController extends Controller
         $product->name = $data['name'];
         $product->desc = $data['desc'];
         $product->quantity = $data['quantity'];
-        $product->save();
-
-        # TODO: product_image 를 json 으로 변경해서 product 테이블에 추가 하자...
-        # TODO: multi image upload 가능한 라이브러리를 찾아서 변경 필요.
-        $product_image = ProductImage::find($data['product_id']);
-        $product_image->product_id = $data['product_id'];
-        $product_image->img_type = 'm';
 
         if (isset($data['image'])) {
+            $product_images = array();
             $file_name = \Common::get_img_filename($data['image']);
             \Common::make_product_img($file_name,720);
             $res = \Common::s3_upload($file_name,'product/');
+
+            $product_images[] = $res['filename'];
+            $product_images[] = $res['filename'];
+
             if ($res['success']) {
-                $product_image->img_name = $res['filename'];
+                $product->images = json_encode($product_images,JSON_UNESCAPED_UNICODE);
             }
         }
 
-        $product_image->save();
+        $product->save();
 
         return \Redirect()->action('ProductController@index');
     }

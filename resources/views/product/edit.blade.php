@@ -20,7 +20,7 @@
             <td>사진</td>
             <td>
               <div id="imagePreview">
-                <img id="company_ci_img" src="{{env('AWS_S3_URL')}}/product/{{$data['product_image']['img_name']}}" style="width:{{720/3}};height:{{405/3}};">
+                <img id="company_ci_img" src="{{env('AWS_S3_URL')}}/product/{{$data['product_image']}}" style="width:{{720/3}}px;height:{{405/3}}px;">
               </div>
               <input type="file" name="image" id="image" onchange="InputImage()">
             </td>
