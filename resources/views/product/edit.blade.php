@@ -20,19 +20,12 @@
             <td>사진</td>
             <td>
               <div id="imagePreview">
-                <img id="company_ci_img" src="{{env('AWS_S3_URL')}}/product/{{$data['product_image']}}" style="width:{{720/3}}px;height:{{405/3}}px;">
+                <img id="" src="{{env('AWS_S3_URL')}}/product/{{$data['product_image']}}" style="width:{{720/3}}px;height:{{405/3}}px;">
               </div>
-              <input type="file" name="image" id="image" onchange="InputImage()">
-
-
-<hr>
 
               <!-- http://hayageek.com/docs/jquery-upload-file.php -->
               <div id="fileuploader">Upload</div>
-
-
-
-
+              <div id="eventsmessage"></div>
             </td>
           </tr>
           <tr>
@@ -82,65 +75,34 @@
         });
     });
 
-    var InputImage = (function loadImageFile() {
-        if (window.FileReader) {
-            var ImagePre,
-                ImgReader = new window.FileReader(),
-                fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-
-            ImgReader.onload = function (event) {
-                if (!ImagePre) {
-                    var newPreview = document.getElementById("imagePreview");
-                    ImagePre = new Image();
-                    ImagePre.style.width = 720/3 + "px";
-                    ImagePre.style.height = 405/3 + "px";
-                    newPreview.appendChild(ImagePre);
-                }
-                ImagePre.src = event.target.result;
-            };
-
-            return function () {
-                var img = document.getElementById("image").files;
-                if (!fileType.test(img[0].type)) {
-                    alert("이미지 파일을 업로드 하세요");
-                    return;
-                }
-                ImgReader.readAsDataURL(img[0]);
+    // http://hayageek.com/docs/jquery-upload-file.php
+    $("#fileuploader").uploadFile({
+        url:"/common/s3_file_upload",
+        fileName:"myfile",
+        uploadStr:"파일첨부",
+        multiple:false,
+        dragDropStr: "<span><b>첨부할 파일을 올려 놓으세요.</b></span>",
+        acceptFiles:"image/*",
+        showPreview:false,
+        maxFileCount:5,
+        maxFileSize:10000*1024,
+        onSuccess:function(files,data,xhr,pd)
+        {
+            if (xhr.responseJSON.success) {
+                var html  = '';
+                    html += '<input type="hidden" name="image[]" value="'+xhr.responseJSON.filename+'">'
+                    html += '<img id="" src="{{env('AWS_S3_URL')}}/product/'+xhr.responseJSON.filename+'" style="width:{{720/3}}px;height:{{405/3}}px;">';
+                $("#imagePreview").html($("#imagePreview").html()+html);
+                $("#eventsmessage").html("파일 업로드가 성공 하였습니다.");
+                $("#eventsmessage").show();
+                $("#eventsmessage").fadeOut(3000);
+            } else {
+                $("#eventsmessage").html("파일 업로드가 실패 하였습니다.");
+                $("#eventsmessage").show();
+                $("#eventsmessage").fadeOut(3000);
             }
-        }
-        document.getElementById("imagePreview").src = document.getElementById("image").value;
-    })();
-
-    $(document).ready(function()
-    {
-        // http://hayageek.com/docs/jquery-upload-file.php
-        $("#fileuploader").uploadFile({
-            url:"/common/s3_file_upload",
-            fileName:"myfile",
-            uploadStr:"파일첨부",
-            dragDropStr: "<span><b>첨부할 파일을 올려 놓으세요.</b></span>",
-            //acceptFiles:"image/*",
-            showPreview:true,
-            //previewHeight:405/3+"px",
-            //previewWidth:720/3+"px",
-            maxFileCount:5,
-            //maxFileSize:10000*1024,
-            onSuccess:function(files,data,xhr,pd)
-            {
-                console.log(files);
-                console.log(data);
-                console.log(xhr);
-                console.log(pd);
-                //$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Success for: "+JSON.stringify(data));
-            },
-            onError: function(files,status,errMsg,pd)
-            {
-                //$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Error for: "+JSON.stringify(files));
-                console.log(files);
-                console.log(errMsg);
-                console.log(pd);
-            },
-        });
+            $(".ajax-file-upload-container").fadeOut(3000);
+        },
     });
 
 </script>

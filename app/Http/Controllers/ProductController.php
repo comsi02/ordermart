@@ -66,17 +66,7 @@ class ProductController extends Controller
         $product->quantity = $data['quantity'];
 
         if (isset($data['image'])) {
-            $product_images = array();
-            $file_name = \Common::get_img_filename($data['image']);
-            \Common::make_product_img($file_name,720);
-            $res = \Common::s3_upload($file_name,'product/');
-
-            $product_images[] = $res['filename'];
-            $product_images[] = $res['filename'];
-
-            if ($res['success']) {
-                $product->images = json_encode($product_images,JSON_UNESCAPED_UNICODE);
-            }
+            $product->images = json_encode($data['image'],JSON_UNESCAPED_UNICODE);
         }
 
         $product->save();
