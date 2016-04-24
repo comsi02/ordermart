@@ -86,6 +86,9 @@
         showPreview:false,
         maxFileCount:5,
         maxFileSize:10000*1024,
+        onSelect:function(files) {
+            $(".ajax-file-upload-statusbar").fadeOut(1000);
+        },
         onSuccess:function(files,data,xhr,pd)
         {
             if (xhr.responseJSON.success) {
@@ -93,15 +96,13 @@
                     html += '<input type="hidden" name="image[]" value="'+xhr.responseJSON.filename+'">'
                     html += '<img id="" src="{{env('AWS_S3_URL')}}/product/'+xhr.responseJSON.filename+'" style="width:{{720/3}}px;height:{{405/3}}px;">';
                 $("#imagePreview").html($("#imagePreview").html()+html);
-                $("#eventsmessage").html("파일 업로드가 성공 하였습니다.");
+
+                $("#eventsmessage").html("<strong>파일 업로드가 성공 하였습니다.</strong>");
                 $("#eventsmessage").show();
-                $("#eventsmessage").fadeOut(3000);
             } else {
-                $("#eventsmessage").html("파일 업로드가 실패 하였습니다.");
+                $("#eventsmessage").html('<strong class="text-red">파일 업로드가 실패 하였습니다.</strong>');
                 $("#eventsmessage").show();
-                $("#eventsmessage").fadeOut(3000);
             }
-            $(".ajax-file-upload-container").fadeOut(3000);
         },
     });
 
