@@ -23,6 +23,16 @@
                 <img id="company_ci_img" src="{{env('AWS_S3_URL')}}/product/{{$data['product_image']}}" style="width:{{720/3}}px;height:{{405/3}}px;">
               </div>
               <input type="file" name="image" id="image" onchange="InputImage()">
+
+
+<hr>
+
+              <!-- http://hayageek.com/docs/jquery-upload-file.php -->
+              <div id="fileuploader">Upload</div>
+
+
+
+
             </td>
           </tr>
           <tr>
@@ -58,6 +68,11 @@
 @endsection
 
 @section('js')
+
+<!-- http://hayageek.com/docs/jquery-upload-file.php -->
+<link href="http://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet">
+<script src="http://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
+
 <script>
     $('#product_destory').on('click',function(){
         $.post( '/product/destory', { 'product_id':"{{$data['product']['id']}}" }, function(data) {
@@ -95,5 +110,38 @@
         }
         document.getElementById("imagePreview").src = document.getElementById("image").value;
     })();
+
+    $(document).ready(function()
+    {
+        // http://hayageek.com/docs/jquery-upload-file.php
+        $("#fileuploader").uploadFile({
+            url:"/common/s3_file_upload",
+            fileName:"myfile",
+            uploadStr:"파일첨부",
+            dragDropStr: "<span><b>첨부할 파일을 올려 놓으세요.</b></span>",
+            //acceptFiles:"image/*",
+            showPreview:true,
+            //previewHeight:405/3+"px",
+            //previewWidth:720/3+"px",
+            maxFileCount:5,
+            //maxFileSize:10000*1024,
+            onSuccess:function(files,data,xhr,pd)
+            {
+                console.log(files);
+                console.log(data);
+                console.log(xhr);
+                console.log(pd);
+                //$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Success for: "+JSON.stringify(data));
+            },
+            onError: function(files,status,errMsg,pd)
+            {
+                //$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Error for: "+JSON.stringify(files));
+                console.log(files);
+                console.log(errMsg);
+                console.log(pd);
+            },
+        });
+    });
+
 </script>
 @endsection

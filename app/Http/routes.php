@@ -25,6 +25,9 @@
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
     Route::get('/', 'HomeController@index');
+
+    // fileupload
+    Route::post('/common/s3_file_upload',       ['as' => 's3_file_upload',          'uses' => 'Common@s3_file_upload']);
 });
 
 // for admin
