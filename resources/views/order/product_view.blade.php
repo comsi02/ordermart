@@ -20,29 +20,22 @@
             <td>사진</td>
             <td>
               <!-- 사진 넣기 -->
-              <div style="width:400px;height:400px;">
+              @if(count($data['product']->images))
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                   <!-- Indicators -->
                   <ol class="carousel-indicators">
-                      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    @foreach ($data['product']->images as $key=>$val)
+                      <li data-target="#carousel-example-generic" data-slide-to="{{$key}}" @if($key==0) class="active" @endif></li>
+                    @endforeach
                   </ol>
 
                   <!-- Wrapper for slides -->
                   <div class="carousel-inner" role="listbox" style="align:center">
-                    <div class="item active">
-                      <img src="https://s3.ap-northeast-2.amazonaws.com/ordermart/company/20160401_135915_KzLJ6K4Znk.jpeg" width=400px height=400px alt="...">
-                      <div class="carousel-caption">호텔나우</div>
+                    @foreach ($data['product']->images as $key=>$val)
+                    <div class=@if($key==0) "item active" @else "item" @endif>
+                      <img src="{{env('AWS_S3_URL')}}/product/{{$val}}">
                     </div>
-                    <div class="item">
-                      <img src="https://s3.ap-northeast-2.amazonaws.com/ordermart/company/20160401_140354_ydjMILZ1f8.png" width=400px height=400px alt="...">
-                      <div class="carousel-caption">티몬</div>
-                    </div>
-                    <div class="item">
-                      <img src="https://s3.ap-northeast-2.amazonaws.com/ordermart/company/20160401_140052_vYvfD4Hf81.jpg" width=400px height=400px alt="...">
-                      <div class="carousel-caption">네오위즈</div>
-                    </div>
+                    @endforeach
                   </div>
 
                   <!-- Controls -->
@@ -55,7 +48,9 @@
                     <span class="sr-only">Next</span>
                   </a>
                 </div>
-              </div>
+              @else
+                <strong>상품 사진이 없습니다.</strong>
+              @endif
             </td>
           </tr>
 

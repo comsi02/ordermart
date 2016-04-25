@@ -46,6 +46,7 @@ class OrderController extends Controller
 
     public function product_view($id) {
         $product = Product::find($id);
+        $product->images = json_decode($product->images);
 
         $data = [
             'product' => $product
