@@ -20,12 +20,42 @@
             <td>사진</td>
             <td>
               <div id="imagePreview">
-                <img id="" src="{{env('AWS_S3_URL')}}/product/{{$data['product_image']}}" style="width:{{720/3}}px;height:{{405/3}}px;">
+                @foreach ($data['product_image'] as $key=>$val)
+                  <input type="hidden" name="image[]" value="{{$val}}">
+                @endforeach
               </div>
 
+              <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  @foreach ($data['product_image'] as $key=>$val)
+                    <li data-target="#myCarousel" data-slide-to="{{$key}}" @if($key==0)class="active"@endif></li>
+                  @endforeach
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  @foreach ($data['product_image'] as $key=>$val)
+                    <div class=@if($key==0) "item active" @else "item" @endif>
+                      <img src="{{env('AWS_S3_URL')}}/product/{{$val}}">
+                    </div>
+                  @endforeach
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+
+              <hr>
               <!-- http://hayageek.com/docs/jquery-upload-file.php -->
               <div id="fileuploader">Upload</div>
-              <div id="eventsmessage"></div>
             </td>
           </tr>
           <tr>
@@ -83,25 +113,14 @@
         multiple:false,
         dragDropStr: "<span><b>첨부할 파일을 올려 놓으세요.</b></span>",
         acceptFiles:"image/*",
-        showPreview:false,
+        showPreview:true,
         maxFileCount:5,
         maxFileSize:10000*1024,
-        onSelect:function(files) {
-            $(".ajax-file-upload-statusbar").fadeOut(1000);
-        },
         onSuccess:function(files,data,xhr,pd)
         {
             if (xhr.responseJSON.success) {
-                var html  = '';
-                    html += '<input type="hidden" name="image[]" value="'+xhr.responseJSON.filename+'">'
-                    html += '<img id="" src="{{env('AWS_S3_URL')}}/product/'+xhr.responseJSON.filename+'" style="width:{{720/3}}px;height:{{405/3}}px;">';
+                var html = '<input type="hidden" name="image[]" value="'+xhr.responseJSON.filename+'">';
                 $("#imagePreview").html($("#imagePreview").html()+html);
-
-                $("#eventsmessage").html("<strong>파일 업로드가 성공 하였습니다.</strong>");
-                $("#eventsmessage").show();
-            } else {
-                $("#eventsmessage").html('<strong class="text-red">파일 업로드가 실패 하였습니다.</strong>');
-                $("#eventsmessage").show();
             }
         },
     });

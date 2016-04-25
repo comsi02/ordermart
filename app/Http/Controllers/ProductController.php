@@ -50,7 +50,7 @@ class ProductController extends Controller
 
         $data = [
             'product' => $product,
-            'product_image' => $product_image[0],
+            'product_image' => $product_image
         ];
 
         return view('product.edit', compact('data'));
