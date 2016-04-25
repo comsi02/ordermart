@@ -20,11 +20,14 @@
             <td>사진</td>
             <td>
               <div id="imagePreview">
-                @foreach ($data['product_image'] as $key=>$val)
-                  <input type="hidden" name="image[]" value="{{$val}}">
-                @endforeach
+                @if(count($data['product_image']))
+                  @foreach ($data['product_image'] as $key=>$val)
+                    <input type="hidden" name="image[]" value="{{$val}}">
+                  @endforeach
+                @endif
               </div>
 
+              @if(count($data['product_image']))
               <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -52,6 +55,9 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
+              @else
+              <strong>등록된 이미지가 없습니다.</strong>
+              @endif
 
               <hr>
               <!-- http://hayageek.com/docs/jquery-upload-file.php -->
