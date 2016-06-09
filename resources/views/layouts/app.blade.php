@@ -84,7 +84,7 @@ desired effect
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px;">
               <!-- The user image in the navbar-->
             @if (!Auth::guest() and Auth::user()->image)
               <img src="{{env('AWS_S3_URL')}}/person/{{Auth::user()->image}}" class="img-circle" alt="User Image" width="30px" height="30px">
